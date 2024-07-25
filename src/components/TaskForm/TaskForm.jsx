@@ -1,25 +1,31 @@
-import { useDispatch } from 'react-redux';
-import { Button } from '../Button/Button';
-import css from './TaskForm.module.css';
+import { Field, Form, Formik } from "formik";
+import css from "./TaskForm.module.css";
+import { useDispatch } from "react-redux";
+import { addTask } from "../../redux/tasksOps";
 
 export const TaskForm = () => {
   const dispatch = useDispatch();
+  const handleSubmit = (values, actions) => {
+    console.log(values); // те що користув ввів в інпут
+    dispatch(addTask(values));
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const form = event.target;
-    form.reset();
+    actions.resetForm();
   };
-
   return (
-    <form className={css.form} onSubmit={handleSubmit}>
-      <input
-        className={css.field}
-        type="text"
-        name="text"
-        placeholder="Enter task text..."
-      />
-      <Button type="submit">Add task</Button>
-    </form>
+    <Formik
+      initialValues={{
+        text: "",
+      }}
+      onSubmit={handleSubmit}
+    >
+      <Form className={css.form}>
+        <Field
+          className={css.field}
+          name="text"
+          placeholder="Enter task text..."
+        />
+        <button type="submit">Add task</button>
+      </Form>
+    </Formik>
   );
 };

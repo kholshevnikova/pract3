@@ -1,14 +1,29 @@
-import { Layout } from './Layout/Layout';
-import { AppBar } from './AppBar/AppBar';
-import { TaskForm } from './TaskForm/TaskForm';
-import { TaskList } from './TaskList/TaskList';
+import { Error } from "./Error/Error";
+import Loader from "./Loader/Loader";
+import { TaskForm } from "./TaskForm/TaskForm";
+import { TaskList } from "./TaskList/TaskList";
+
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchTasks } from "../redux/tasksOps";
+
+// Імпорти компонентів
 
 export const App = () => {
+  const dispatch = useDispatch();
+  //селектори для лоадинг и ерроу для того щоб відобразити ніжче в інтерфейсі
+
+  useEffect(() => {
+    const operation = fetchTasks();
+    dispatch(operation);
+  }, [dispatch]);
   return (
-    <Layout>
-      <AppBar />
+    <div>
+      <h1>HTTp requests</h1>
       <TaskForm />
       <TaskList />
-    </Layout>
+      <Error />
+      <Loader />
+    </div>
   );
 };
