@@ -6,6 +6,7 @@ import { TaskList } from "./TaskList/TaskList";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchTasks } from "../redux/tasksOps";
+import TextFilter from "./TextFilter/TextFilter";
 
 // Імпорти компонентів
 
@@ -21,6 +22,7 @@ export const App = () => {
     <div>
       <h1>HTTp requests</h1>
       <TaskForm />
+      <TextFilter />
       <TaskList />
       <Error />
       <Loader />
